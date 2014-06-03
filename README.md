@@ -7,7 +7,7 @@ Use this example to easy charge customers using aF functions.
 Obtain the latest version of the aceitaFacil HTML + jQuery Example with:
 
 ```sh
-	    git clone https://github.com/aceitaFacil/html-jquery-example
+	    git clone https://github.com/aceitaFacil/HTML-jQuery-Example
 ```
 
 To get started, update the authorization headers with a base64 of your public key with a colon in the end:
