@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>aceitaFacil HTML + jQuery Example</title>
+
+	<script type="text/javascript" src="http://code.jquery.com/jquery-1.11.1.min.js"></script>
+	<script>
+		$(function() {
+			$('#enviar').click(function() {
+		    $.ajax('https://sandbox.api.aceitafacil.com/card', {
+	        headers: { 'Authorization': 'Basic NDM4Y2Y4ZjA2ZTZmZWY4MDc1NTkyYjI1YTg1NTJmOTY3ZDVhYWI3Njo=' },
+	        type: 'POST',
+	        dataType: 'json',
+	        data: {
+	          'customer[id]': 'foo',
+	          'card[name]': $('#name').val(),
+	          'card[number]': $('#number').val(),
+	          'card[exp_date]': $('#exp_date').val()
+	        }
+		    }).done(function(data) {
+		    	disableInput();
+	        $('#cardtoken').val(data.card[0].token);
+	        $('#cardbrand').val(data.card[0].card_brand);
+	        $('#cardlastdigits').val(data.card[0].last_digits);
+	        $('#cardcvv').val($('#cvv').val());
+	        alert('Dados processados com sucesso! \n\n Redirecionando ao seu servidor.')
+	        $('#frmPayment').submit();
+
+		    }).fail(function(jqXHR, textStatus, errorThrown) {
+	        alert('Ocorrou um erro no envio dos dados [' + textStatus + '][' + errorThrown + ']');
+	        enableInput();
+		    });
+			});
+		});
+
+		function disableInput(){
+			$("#name").prop('disabled', true);
+			$("#number").prop('disabled', true);
+			$("#exp_date").prop('disabled', true);
+			$("#enviar").prop('disabled', true);
+		}
+
+		function enableInput(){
+			$("#name").prop('disabled', false);
+			$("#number").prop('disabled', false);
+			$("#exp_date").prop('disabled', false);
+			$("#enviar").prop('disabled', false);
+		}
+	</script>
+
+</head>
+<body>
+	<form id="frmPayment" action="https://SEU_SITE/payment" method="post">
+		<div>
+			<label for="name">Nome do titular do cart&atilde;o</label>
+			<input type="text" id="name" value="NOME DO CLIENTE">
+		</div>
+		<div>
+			<label for="number">N&uacute;mero do cart&atilde;o</label>
+			<input type="text" id="number" value="4111111111111111">
+		</div>
+		<div>
+			<label for="exp_date">Data de validade (aaaamm)</label>
+			<input type="text" id="exp_date" value="201803">
+		</div>
+		<div>
+			<label for="cvv">C&oacute;digo de seguran&ccedil;a</label>
+			<input type="text" id="cvv" value="123">
+		</div>
+		<div>
+			<input type="button" id="enviar" value=" Enviar ">
+		</div>
+			<input type="hidden" id="cardtoken" name="card[token]">
+			<input type="hidden" id="cardbrand" name="card[brand]">
+			<input type="hidden" id="cardlastdigits" name="card[last_digits]">
+			<input type="hidden" id="cardcvv" name="card[cvv]">
+	</form>
+</body>
+</html>
