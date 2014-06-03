@@ -8,29 +8,28 @@
 	<script>
 		$(function() {
 			$('#enviar').click(function() {
-		    $.ajax('https://sandbox.api.aceitafacil.com/card', {
-	        headers: { 'Authorization': 'Basic NDM4Y2Y4ZjA2ZTZmZWY4MDc1NTkyYjI1YTg1NTJmOTY3ZDVhYWI3Njo=' },
-	        type: 'POST',
-	        dataType: 'json',
-	        data: {
-	          'customer[id]': 'foo',
-	          'card[name]': $('#name').val(),
-	          'card[number]': $('#number').val(),
-	          'card[exp_date]': $('#exp_date').val()
-	        }
-		    }).done(function(data) {
-		    	disableInput();
-	        $('#cardtoken').val(data.card[0].token);
-	        $('#cardbrand').val(data.card[0].card_brand);
-	        $('#cardlastdigits').val(data.card[0].last_digits);
-	        $('#cardcvv').val($('#cvv').val());
-	        alert('Dados processados com sucesso! \n\n Redirecionando ao seu servidor.')
-	        $('#frmPayment').submit();
-
-		    }).fail(function(jqXHR, textStatus, errorThrown) {
-	        alert('Ocorrou um erro no envio dos dados [' + textStatus + '][' + errorThrown + ']');
-	        enableInput();
-		    });
+				$.ajax('https://sandbox.api.aceitafacil.com/card', {
+					headers: { 'Authorization': 'Basic NDM4Y2Y4ZjA2ZTZmZWY4MDc1NTkyYjI1YTg1NTJmOTY3ZDVhYWI3Njo=' },
+					type: 'POST',
+					dataType: 'json',
+					data: {
+						'customer[id]': 'foo',
+						'card[name]': $('#name').val(),
+						'card[number]': $('#number').val(),
+						'card[exp_date]': $('#exp_date').val()
+					}
+				}).done(function(data) {
+					disableInput();
+					$('#cardtoken').val(data.card[0].token);
+					$('#cardbrand').val(data.card[0].card_brand);
+					$('#cardlastdigits').val(data.card[0].last_digits);
+					$('#cardcvv').val($('#cvv').val());
+					alert('Dados processados com sucesso! \n\n Redirecionando ao seu servidor.');
+					$('#frmPayment').submit();
+				}).fail(function(jqXHR, textStatus, errorThrown) {
+					alert('Ocorrou um erro no envio dos dados [' + textStatus + '][' + errorThrown + ']');
+					enableInput();
+				});
 			});
 		});
 
