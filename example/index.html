@@ -9,6 +9,7 @@
 		$(function() {
 			$('#enviar').click(function() {
 				$.ajax('https://sandbox.api.aceitafacil.com/card', {
+					// Change the next line. (see README)
 					headers: { 'Authorization': 'Basic NDM4Y2Y4ZjA2ZTZmZWY4MDc1NTkyYjI1YTg1NTJmOTY3ZDVhYWI3Njo=' },
 					type: 'POST',
 					dataType: 'json',
@@ -50,6 +51,7 @@
 
 </head>
 <body>
+	<!-- Change the next line. (see README) -->
 	<form id="frmPayment" action="https://SEU_SITE/payment" method="post">
 		<div>
 			<label for="name">Nome do titular do cart&atilde;o</label>
