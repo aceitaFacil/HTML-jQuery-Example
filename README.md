@@ -10,12 +10,13 @@ Use this example to easily charge customers using aceitaFacil functions.
     git clone https://github.com/aceitaFacil/HTML-jQuery-Example
     ```
 
-2. Generate a base64 string of your public key concatenated with a colon:
+2. Generate a base64 string of your API key concatenated with a colon:
 
     1. Open the developer tools console from your browser (instructions for
        [Chrome][devtools-chrome] and [Firefox][devtools-firefox]).
 
-    2. Type `btoa('INSERT YOUR PUBLIC KEY HERE' + ':');`.
+    2. Type `btoa('INSERT YOUR PUBLIC API KEY HERE' + ':');`. Your public API
+       key is just the username.
 
     3. Take note of the generated string.
 
