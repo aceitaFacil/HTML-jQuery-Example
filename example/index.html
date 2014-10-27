@@ -4,16 +4,20 @@
 	<meta charset="utf-8">
 	<title>aceitaFacil HTML + jQuery Example</title>
 
-	<script type="text/javascript" src="http://code.jquery.com/jquery-1.11.1.min.js"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+
+	<!-- IE8/IE9 compatibility: -->
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-ajaxtransport-xdomainrequest/1.0.2/jquery.xdomainrequest.min.js"></script>
+
 	<script>
 		$(function() {
 			$('#enviar').click(function() {
 				$.ajax('https://sandbox.api.aceitafacil.com/card', {
-					// Change the next line. (see README)
-					headers: { 'Authorization': 'Basic NDM4Y2Y4ZjA2ZTZmZWY4MDc1NTkyYjI1YTg1NTJmOTY3ZDVhYWI3Njo=' },
 					type: 'POST',
 					dataType: 'json',
 					data: {
+						// Change the next line:
+						'api_username'  : 'Insert the API username here',
 						'customer[id]': 'foo',
 						'card[name]': $('#name').val(),
 						'card[number]': $('#number').val(),
@@ -28,7 +32,8 @@
 					alert('Dados processados com sucesso! \n\n Redirecionando ao seu servidor.');
 					$('#frmPayment').submit();
 				}).fail(function(jqXHR, textStatus, errorThrown) {
-					alert('Ocorrou um erro no envio dos dados [' + textStatus + '][' + errorThrown + ']');
+					// Note: It is not possible to retrieve the error message in IE8/IE9.
+					alert('Ocorrou um erro no envio dos dados [' + textStatus + '][' + errorThrown + ']: ' + jqXHR.responseText);
 					enableInput();
 				});
 			});
